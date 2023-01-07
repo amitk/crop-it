@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "dashboard#index"
 
+  get '/ping' => "dashboard#ping"
+
   post "/link" => "links#create"
   get "/:code" => "links#show"
 end
