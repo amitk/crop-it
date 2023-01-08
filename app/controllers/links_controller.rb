@@ -2,9 +2,9 @@ class LinksController < ApplicationController
 
   def create
     params.require(:url)
-    link = Link.new(url: params[:url])
-    if link.save!
-      render json: link.short_url(request.base_url), status: 200
+    create_link
+    unless @link.errors.present?
+      render json: @link.short_url(request.base_url), status: 200
     else
       render json: { "message": "link cropping process failed"}, status: 500
     end
@@ -22,5 +22,10 @@ class LinksController < ApplicationController
 
   def url
     @url ||= Link.find_by(code: params[:code]).try(:url)
+  end
+
+  def create_link
+    @link = Link.find_or_initialize_by(url: params[:url])
+    @link.save unless @link.id
   end
 end
