@@ -4,7 +4,7 @@ class LinksController < ApplicationController
     params.require(:url)
     create_link
     unless @link.errors.present?
-      render json: @link.short_url(request.base_url), status: 200
+      render json: { slang: @link.short_url(request.base_url) }, status: 200
     else
       render json: { "message": "link cropping process failed"}, status: 500
     end

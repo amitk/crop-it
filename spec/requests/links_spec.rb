@@ -21,7 +21,7 @@ RSpec.describe "Links", type: :request do
         post '/link', params: { url: url }
         
         base_url = request.base_url
-        expect(response.body).to eq("#{base_url}/#{Link.last.code}")
+        expect(JSON.parse(response.body)['slang']).to eq("#{base_url}/#{Link.last.code}")
       end
 
       context 'when same url is sent multiple times' do
@@ -29,7 +29,7 @@ RSpec.describe "Links", type: :request do
         it 'creates a single entry', :aggregate_failures do
           post '/link', params: { url: url }
 
-          expect(response.body).to eq("#{request.base_url}/#{Link.last.code}")
+          expect(JSON.parse(response.body)['slang']).to eq("#{request.base_url}/#{Link.last.code}")
           expect(Link.count).to eq(1)
         end
       end
