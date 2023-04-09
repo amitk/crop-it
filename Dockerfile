@@ -4,13 +4,13 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && \
   apt-get install ruby-full build-essential -y && \
-  apt-get install libpq-dev -y
+  apt-get install libpq-dev -y &&\
+  apt-get install git -y
 
 COPY . .
 
-RUN gem install bundler:2.3
-
 RUN gem update --system
+RUN gem install bundler:2.3.26
 
 RUN bundle install
 

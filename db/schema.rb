@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_25_101655) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_021347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.integer "population"
+    t.string "currencies", default: [], array: true
+    t.string "languages", default: [], array: true
+    t.jsonb "data", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currencies"], name: "index_countries_on_currencies", using: :gin
+    t.index ["data"], name: "index_countries_on_data", using: :gin
+    t.index ["languages"], name: "index_countries_on_languages", using: :gin
+  end
 
   create_table "links", force: :cascade do |t|
     t.string "url"

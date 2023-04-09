@@ -88,4 +88,6 @@ test:
 production:
   <<: *default
   database: crop_it_production
-  url: <%= ENV['DATABASE_URL'] %>
+  username: "postgres"
+  password: "password"
+  host:   "/cloudsql/api-project-374912:us-central1:application-test-db"

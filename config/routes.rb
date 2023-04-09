@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   root "dashboard#index"
 
   get '/ping' => "dashboard#ping"
+  
+  # routes regarding world data
+  namespace "countries" do
+    get '/index', action: :index
+  end
 
   post "/link" => "links#create"
   get "/:code" => "links#show"
+
 end
